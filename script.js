@@ -49,8 +49,18 @@ function startQuiz () {
     userChoice();
 }
 
-function checkAnswer () {
+function checkAnswer (event) {
+    //console.log(event);
+    console.log(event.target.textContent);
+    console.log(chosenQuestion.correct);
 
+    if (event.target.textContent === chosenQuestion.correct) {
+        console.log("CORRECT");
+    } else {
+        console.log("WRONG");
+        // deducts 15 seconds if you miss a question
+        timerCount = timerCount - 15;
+    }
 }
 
 function userChoice () {
@@ -79,7 +89,7 @@ function startTimer () {
         timerElement.textContent = timerCount;
 
         if (timerCount === 0) {
-            console.log("you lose boy");
+            console.log("you lose");
             // stops the timer at 0.
             clearInterval(timer);
         }
