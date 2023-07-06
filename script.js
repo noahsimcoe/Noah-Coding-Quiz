@@ -9,6 +9,7 @@ var answerFour = document.querySelector(".answer4");
 
 var timerCount;
 var timer;
+var chosenQuestion = {};
 
 var questionBank = [
     {
@@ -17,6 +18,7 @@ var questionBank = [
         answer2: "Green",
         answer3: "Blue",
         answer4: "Yellow",
+        correct: "Blue",
     },
     {
         question: "What size shoes do I wear?",
@@ -24,6 +26,7 @@ var questionBank = [
         answer2: 9.5,
         answer3: 10,
         answer4: 10.5,
+        correct: 9.5,
     },
     {
         question: "Which country have I been to?",
@@ -31,6 +34,7 @@ var questionBank = [
         answer2: "Ireland",
         answer3: "Portugal",
         answer4: "Greece",
+        correct: "Greece",
     },
 ]
 
@@ -38,14 +42,23 @@ var questionBank = [
 function startQuiz () {
     timerCount = 60;
     startButton.disabled = true;
+    renderQuestion();
     startTimer();
 }
 
-// this will be the function to pick an object from the questionBank Array
+// this picks a random question(currently in the form of an object) from the quesiton Array
+// this also assigns the value of the question/answers to the buttons on index.html
 function renderQuestion() {
-
+    chosenQuestion = questionBank[Math.floor(Math.random() * questionBank.length)];
+    console.log(chosenQuestion);
+    questionHolder.textContent = chosenQuestion.question;
+    answerOne.textContent = chosenQuestion.answer1;
+    answerTwo.textContent = chosenQuestion.answer2;
+    answerThree.textContent = chosenQuestion.answer3;
+    answerFour.textContent = chosenQuestion.answer4;
 }
 
+// this is the timer that counts down 1 second at a time to 0
 function startTimer () {
     timer = setInterval(() => {
         timerCount--;
@@ -60,9 +73,10 @@ function startTimer () {
     }, 1000);
 }
 
+// this makes stuff start when the start button is clicked
 function main () {
     startButton.addEventListener("click", startQuiz);
 }
 
-// function is able to be called, just whenever the startButton area is clicked.
+// functions are now working on the page from the main() call below
 main();
