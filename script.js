@@ -6,7 +6,9 @@ var answerOne = document.querySelector(".answer1");
 var answerTwo = document.querySelector(".answer2");
 var answerThree = document.querySelector(".answer3");
 var answerFour = document.querySelector(".answer4");
+var answers = document.querySelectorAll("#button");
 
+var guess;
 var timerCount;
 var timer;
 var chosenQuestion = {};
@@ -44,6 +46,18 @@ function startQuiz () {
     startButton.disabled = true;
     renderQuestion();
     startTimer();
+    userChoice();
+}
+
+function checkAnswer () {
+
+}
+
+function userChoice () {
+    answerOne.addEventListener("click", checkAnswer);
+    answerTwo.addEventListener("click", checkAnswer);
+    answerThree.addEventListener("click", checkAnswer);
+    answerFour.addEventListener("click", checkAnswer);
 }
 
 // this picks a random question(currently in the form of an object) from the quesiton Array
