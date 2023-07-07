@@ -48,7 +48,6 @@ function startQuiz () {
     startButton.disabled = true;
     startTimer();
     renderQuestion();
-    userChoice();
 }
 
 function userChoice () {
@@ -73,21 +72,32 @@ function checkAnswer (event) {
         // deducts 15 seconds if you miss a question
         timerCount = timerCount - 15;
     }
-
+    // RECURSION -- this makes the function restart after an answer is selected
     renderQuestion();
-    userChoice();
 }
 
 // this picks a random question(currently in the form of an object) from the quesiton Array
 // this also assigns the value of the question/answers to the buttons on index.html
 function renderQuestion() {
-    chosenQuestion = questionBank[Math.floor(Math.random() * questionBank.length)];
-    console.log(chosenQuestion);
-    questionHolder.textContent = chosenQuestion.question;
-    answerOne.textContent = chosenQuestion.answer1;
-    answerTwo.textContent = chosenQuestion.answer2;
-    answerThree.textContent = chosenQuestion.answer3;
-    answerFour.textContent = chosenQuestion.answer4;
+    if (questionBank.length === 0) {
+        console.log("Out of questions")
+        stopTimer();
+    }
+    else {
+        // this segment of code removes the question selected from the array
+        var pickedQ = Math.floor(Math.random() * questionBank.length)
+        chosenQuestion = questionBank[pickedQ];
+        questionBank.splice(pickedQ, 1);
+        console.log(questionBank);
+
+        questionHolder.textContent = chosenQuestion.question;
+        answerOne.textContent = chosenQuestion.answer1;
+        answerTwo.textContent = chosenQuestion.answer2;
+        answerThree.textContent = chosenQuestion.answer3;
+        answerFour.textContent = chosenQuestion.answer4;
+
+        userChoice ();
+    }
 }
 
 // this is the timer that counts down 1 second at a time to 0
@@ -103,6 +113,11 @@ function startTimer () {
         }
 
     }, 1000);
+}
+
+function stopTimer () {
+    timerCount = timerCount;
+    console.log("hi");
 }
 
 // this makes stuff start when the start button is clicked
