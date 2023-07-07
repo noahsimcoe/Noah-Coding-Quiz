@@ -1,13 +1,13 @@
 var timerElement = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
 var scoreDisplay = document.querySelector("#score");
+var button = document.querySelectorAll(".button");
 
 var questionHolder = document.querySelector(".question-holder");
 var answerOne = document.querySelector(".answer1");
 var answerTwo = document.querySelector(".answer2");
 var answerThree = document.querySelector(".answer3");
 var answerFour = document.querySelector(".answer4");
-var answers = document.querySelectorAll("#button");
 
 var guess;
 var timerCount;
@@ -17,28 +17,60 @@ var score = "1";
 
 var questionBank = [
     {
-        question: "What is my favorite color?",
-        answer1: "Red",
-        answer2: "Green",
-        answer3: "Blue",
-        answer4: "Yellow",
-        correct: "Blue",
+        question: "Which language is used to build the structure of a webpage?",
+        answer1: "HTML",
+        answer2: "CSS",
+        answer3: "JavaScript",
+        answer4: "Python",
+        correct: "HTML",
     },
     {
-        question: "What size shoes do I wear?",
-        answer1: "nine",
-        answer2: "nine and a half",
-        answer3: "ten",
-        answer4: "ten and a half",
-        correct: "nine and a half",
+        question: "Which language is used to style a webpage?",
+        answer1: "HTML",
+        answer2: "CSS",
+        answer3: "JavaScript",
+        answer4: "Python",
+        correct: "CSS",
     },
     {
-        question: "Which country have I been to?",
-        answer1: "South Africa",
-        answer2: "Ireland",
-        answer3: "Portugal",
-        answer4: "Greece",
-        correct: "Greece",
+        question: "Which language provides a webpage with interactivity?",
+        answer1: "HTML",
+        answer2: "CSS",
+        answer3: "JavaScript",
+        answer4: "Git/GitHub",
+        correct: "JavaScript",
+    },
+    {
+        question: "What is used for version control when writing code?",
+        answer1: "React",
+        answer2: "Django",
+        answer3: "Git/GitHub",
+        answer4: "MySQL",
+        correct: "Git/GitHub",
+    },
+    {
+        question: "Which of these is not a data type?",
+        answer1: "String",
+        answer2: "Class",
+        answer3: "Number",
+        answer4: "Boolean",
+        correct: "Class",
+    },
+    {
+        question: "Which of these tags appears biggest on the browser?",
+        answer1: "<h1>",
+        answer2: "<h2>",
+        answer3: "<h3>",
+        answer4: "<h4>",
+        correct: "<h1>",
+    },
+    {
+        question: "Which of these are not CSS tranformation properties?",
+        answer1: "Transform",
+        answer2: "Scale",
+        answer3: "Minimize",
+        answer4: "Skew",
+        correct: "Minimize",
     },
 ]
 
@@ -55,6 +87,7 @@ function userChoice () {
     answerTwo.addEventListener("click", checkAnswer);
     answerThree.addEventListener("click", checkAnswer);
     answerFour.addEventListener("click", checkAnswer);
+
 }
 
 function checkAnswer (event) {
@@ -79,9 +112,12 @@ function checkAnswer (event) {
 // this picks a random question(currently in the form of an object) from the quesiton Array
 // this also assigns the value of the question/answers to the buttons on index.html
 function renderQuestion() {
+
+    // this stops the timer after you have gone through all of the questions
     if (questionBank.length === 0) {
         console.log("Out of questions")
-        stopTimer();
+        lockButton();
+        clearInterval(timer);
     }
     else {
         // this segment of code removes the question selected from the array
@@ -106,18 +142,23 @@ function startTimer () {
         timerCount--;
         timerElement.textContent = timerCount;
 
-        if (timerCount === 0) {
+        if (timerCount < 0) {
             console.log("you lose");
             // stops the timer at 0.
+            lockButton()
             clearInterval(timer);
+
         }
 
     }, 1000);
 }
 
-function stopTimer () {
-    timerCount = timerCount;
-    console.log("hi");
+// used to lock the buttons if the time OR questions run out
+function lockButton () {
+    answerOne.disabled = true;
+    answerTwo.disabled = true;
+    answerThree.disabled = true;
+    answerFour.disabled = true;
 }
 
 // this makes stuff start when the start button is clicked
