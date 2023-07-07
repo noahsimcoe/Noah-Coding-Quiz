@@ -1,5 +1,6 @@
 var timerElement = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
+var scoreDisplay = document.querySelector("#score");
 
 var questionHolder = document.querySelector(".question-holder");
 var answerOne = document.querySelector(".answer1");
@@ -12,6 +13,7 @@ var guess;
 var timerCount;
 var timer;
 var chosenQuestion = {};
+var score = "1";
 
 var questionBank = [
     {
@@ -24,11 +26,11 @@ var questionBank = [
     },
     {
         question: "What size shoes do I wear?",
-        answer1: 9,
-        answer2: 9.5,
-        answer3: 10,
-        answer4: 10.5,
-        correct: 9.5,
+        answer1: "nine",
+        answer2: "nine and a half",
+        answer3: "ten",
+        answer4: "ten and a half",
+        correct: "nine and a half",
     },
     {
         question: "Which country have I been to?",
@@ -44,9 +46,16 @@ var questionBank = [
 function startQuiz () {
     timerCount = 60;
     startButton.disabled = true;
-    renderQuestion();
     startTimer();
+    renderQuestion();
     userChoice();
+}
+
+function userChoice () {
+    answerOne.addEventListener("click", checkAnswer);
+    answerTwo.addEventListener("click", checkAnswer);
+    answerThree.addEventListener("click", checkAnswer);
+    answerFour.addEventListener("click", checkAnswer);
 }
 
 function checkAnswer (event) {
@@ -56,18 +65,17 @@ function checkAnswer (event) {
 
     if (event.target.textContent === chosenQuestion.correct) {
         console.log("CORRECT");
+        score++;
+        console.log(score);
+        scoreDisplay.textContent = score;
     } else {
         console.log("WRONG");
         // deducts 15 seconds if you miss a question
         timerCount = timerCount - 15;
     }
-}
 
-function userChoice () {
-    answerOne.addEventListener("click", checkAnswer);
-    answerTwo.addEventListener("click", checkAnswer);
-    answerThree.addEventListener("click", checkAnswer);
-    answerFour.addEventListener("click", checkAnswer);
+    renderQuestion();
+    userChoice();
 }
 
 // this picks a random question(currently in the form of an object) from the quesiton Array
