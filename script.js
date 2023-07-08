@@ -15,7 +15,7 @@ var guess;
 var timerCount;
 var timer;
 var chosenQuestion = {};
-var score = "0";
+var score = 0;
 var finalScore = 0;
 var questionBank = [
     {
