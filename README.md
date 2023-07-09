@@ -18,7 +18,7 @@ This project can be used to test your knowledge of some of the entry-level codin
 Here is the link to access the deployed application. 
 
 
-Additionally, here is a screenshot of what it looks like.
+Additionally, here are two screenshots of what some of the views look like.
 ![Coding Quiz Home](https://github.com/noahsimcoe/Noah-Coding-Quiz/assets/109931528/6dc52eeb-4fa0-44ea-9c18-e3cb1bab383f)
 ![Coding Quiz Q](https://github.com/noahsimcoe/Noah-Coding-Quiz/assets/109931528/9edfd30d-e81e-4347-a2da-c212aed50e6b)
 
