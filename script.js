@@ -13,10 +13,14 @@ var answerThree = document.querySelector(".answer3");
 var answerFour = document.querySelector(".answer4");
 var finalScoreInput = document.querySelector("#final-score-submit");
 var submitButton = document.querySelector("#submit-button");
+var clearButton = document.querySelector("#clear-button");
 var userInitialSpan = document.querySelector("#user-initials");
 var initialsInput = document.querySelector("#initials-submission");
 var scoreboard = document.querySelector("#scoreboard");
-
+var refresh = document.querySelector("#refresh");
+var refreshButton = document.querySelector("#refresh-button");
+var scoreList = document.querySelector("#score-list");
+var scores = [];
 var guess;
 var timerCount;
 var timer;
@@ -82,18 +86,19 @@ var questionBank = [
     },
 ]
 
-finalScoreDisplay.style.visibility = "hidden";
-questionanswerEl.style.visibility = "hidden";
-timerview.style.visibility = "hidden";
-initialsInput.style.visibility = "hidden";
-scoreboard.style.visibility = "hidden";
+refreshButton.style.display = "none";
+finalScoreDisplay.style.display = "none";
+questionanswerEl.style.display = "none";
+timerview.style.display = "none";
+initialsInput.style.display = "none";
+scoreboard.style.display = "none";
 
 // main function that is kicked off that starts the timer
 function startQuiz () {
     timerCount = 60;
     startButton.disabled = true;
-    questionanswerEl.style.visibility = "visible";
-    timerview.style.visibility = "visible";
+    questionanswerEl.style.display = "inline";
+    timerview.style.display = "inline";
     startview.style.display = "none";
     startTimer();
     renderQuestion();
@@ -127,15 +132,15 @@ function quizOver () {
     hideButton()
     clearInterval(timer);
     createFinalScore();
-    finalScoreDisplay.style.visibility = "visible";
-    questionanswerEl.style.visibility = "hidden";
-    timerview.style.visibility = "hidden";
+    finalScoreDisplay.style.display = "inline";
+    questionanswerEl.style.display = "none";
+    timerview.style.display = "none";
     questionHolder.textContent = "";
     timerElement.textContent = "";
-    initialsInput.style.visibility = "visible";
-    scoreboard.style.visibility = "visible";
-    startview.style.display = "block";
+    initialsInput.style.display = "inline";
+    scoreboard.style.display = "inline";
     startButton.disabled = false;
+    refreshButton.style.display = "inline";
 }
 
 // this picks a random question(currently in the form of an object) from the quesiton Array
@@ -180,27 +185,63 @@ function startTimer () {
 
 // used to hide the answers
 function hideButton () {
-    answerOne.style.visibility = "hidden";
-    answerTwo.style.visibility = "hidden";
-    answerThree.style.visibility = "hidden";
-    answerFour.style.visibility = "hidden";
+    answerOne.style.display = "none";
+    answerTwo.style.display = "none";
+    answerThree.style.display = "none";
+    answerFour.style.display = "none";
 }
 
+clearButton.addEventListener("click", function(event) {
+    localStorage.clear();
+    console.log("Hey");
+})
+
+
 // when the user clicks submit the initials/score are stored locally
-submitButton.addEventListener("click", function (event) {
+submitButton.addEventListener("click", function(event) {
     event.preventDefault();
     var initials = document.querySelector("#initials").value;
     var lastScore = document.querySelector("#final-score-submit").value;
-    localStorage.setItem("initials", initials + " " + lastScore);
-    renderLastScore();
+    var completeScore = (initials + " " + lastScore);
+    if (completeScore === "") {
+        return;
+    }
+    scores.push(completeScore);
+    storeScores();
+    renderScores();
+    refreshPage();
 })
 
-// this renders the submission info
-function renderLastScore() {
-    var initialDisplay = localStorage.getItem("initials");
-    userInitialSpan.textContent = initialDisplay;
+function refreshPage() {
+    refresh.addEventListener("click", function (event) {
+        event.preventDefault();
+        // reloads webpage to initial view, for use after score submission
+        location.reload();
+    });
 }
 
+function storeScores () {
+    localStorage.setItem("scores", JSON.stringify(scores));
+}
+
+function renderScores() {
+    scoreList.innerHTML = "";
+    for (var i = 0; i < scores.length; i++) {
+        var score = scores[i];
+        var li = document.createElement("li");
+        li.textContent = score;
+        scoreList.appendChild(li);
+    }
+}
+
+function init(){
+    var storedScores = JSON.parse(localStorage.getItem("scores"));
+    // updates the array with new scores
+    if (storedScores !== null) {
+        scores = storedScores;
+    }
+    renderScores();
+}
 
 // this makes stuff start when the start button is clicked
 function main () {
@@ -209,3 +250,4 @@ function main () {
 
 // functions are now working on the page from the main() call below
 main();
+init();

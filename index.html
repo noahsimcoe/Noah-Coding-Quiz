@@ -12,6 +12,10 @@
     <h1>Noah's Coding Quiz</h1>
 </header>
 <main>
+    <div id="refresh-button">
+        <button id="refresh">Back to home</button>
+    </div>
+
     <div id="start-view">
         <h3>Click on the start button to begin the challenge!</h3>
         <button class="start-button">Start Quiz</button>
@@ -41,13 +45,14 @@
             <input type="text" id="initials" name="initials" maxlength="3" placeholder="Enter your 3 initials">
             <input type="text" id="final-score-submit" name="final-score-submit" hidden>
             <input type="submit" id="submit-button" value="Submit">
+            <input type="submit" id="clear-button" value="Clear Scores">
         </form>
     </div>
 
     <div id="scoreboard">
         <h2>Scoreboard:</h2>
-        <p><strong>Initials/Score:</strong> <span id="user-initials"></span></p>
-
+        <h3><span id="user-initials"></span></h3>
+        <ul id="score-list"></ul>
     </div>
 
     <script src="script.js"></script>
