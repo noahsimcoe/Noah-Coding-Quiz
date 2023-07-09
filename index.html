@@ -9,13 +9,19 @@
 </head>
 <body>
 <header>
-    <h1>Noah's Coding Quiz Challenge</h1>
-    <p>Click on the start button to begin the challenge!</p>
+    <h1>Noah's Coding Quiz</h1>
 </header>
-    <button class="start-button">Start Quiz</button>
-    <h2 class="timer-count">60</h2>
-    <h4 class="seconds">seconds remaining</h4>
-    <div>
+<main>
+    <div id="start-view">
+        <h3>Click on the start button to begin the challenge!</h3>
+        <button class="start-button">Start Quiz</button>
+    </div>
+
+    <div id="timer-view">
+        <h2 class="timer-count">60</h2>
+    </div>
+
+    <div id="q-a-view">
         <h2 class="question-holder">Question Placeholder</h2>
         <div>
             <button class="answer1 button">Answer 1</button>
@@ -24,11 +30,21 @@
             <button class="answer4 button">Answer 4</button>
         </div>
     </div>
+
     <div id="score-view">
         <h2>Your Final Score:</h2>
-        <h3 class="final-score">0</h3>
+        <h2 class="final-score">0</h2>
     </div>
 
+    <form>
+        <label for="initials">Initials:</label>
+        <input type="text" id="initials" name="initials"><br>
+        <label for="final-score-submit">Final Score</label>
+        <input type="text" id="final-score-submit" name="final-score-submit" disabled><br>
+        <input type="submit" value="Submit">
+    </form>
+
     <script src="script.js"></script>
+</main>
 </body>
 </html>

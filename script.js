@@ -1,14 +1,17 @@
 var timerElement = document.querySelector(".timer-count");
-var secondsEl = document.querySelector(".seconds");
 var startButton = document.querySelector(".start-button");
 var finalScoreNumber = document.querySelector(".final-score");
 var finalScoreDisplay = document.querySelector("#score-view");
+var questionanswerEl = document.querySelector("#q-a-view");
+var timerview = document.querySelector("#timer-view");
+var startview = document.querySelector("#start-view");
 var button = document.querySelectorAll(".button");
 var questionHolder = document.querySelector(".question-holder");
 var answerOne = document.querySelector(".answer1");
 var answerTwo = document.querySelector(".answer2");
 var answerThree = document.querySelector(".answer3");
 var answerFour = document.querySelector(".answer4");
+var finalScoreInput = document.querySelector("#final-score-submit");
 
 var guess;
 var timerCount;
@@ -76,11 +79,16 @@ var questionBank = [
 ]
 
 finalScoreDisplay.style.visibility = "hidden";
+questionanswerEl.style.visibility = "hidden";
+timerview.style.visibility = "hidden";
 
 // main function that is kicked off that starts the timer
 function startQuiz () {
     timerCount = 60;
     startButton.disabled = true;
+    questionanswerEl.style.visibility = "visible";
+    timerview.style.visibility = "visible";
+    startview.style.display = "none";
     startTimer();
     renderQuestion();
 }
@@ -111,12 +119,13 @@ function checkAnswer (event) {
 
 function quizOver () {
     hideButton()
-    questionHolder.textContent = "";
     clearInterval(timer);
     createFinalScore();
     finalScoreDisplay.style.visibility = "visible";
+    questionanswerEl.style.visibility = "hidden";
+    timerview.style.visibility = "hidden";
+    questionHolder.textContent = "";
     timerElement.textContent = "";
-    secondsEl.textContent = "";
 }
 
 // this picks a random question(currently in the form of an object) from the quesiton Array
@@ -144,6 +153,8 @@ function renderQuestion() {
 function createFinalScore () {
     finalScore = (timerCount + score);
     finalScoreNumber.textContent = finalScore;
+    finalScoreInput.value = finalScore;
+
 }
 
 // this is the timer that counts down 1 second at a time to 0

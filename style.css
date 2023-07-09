@@ -1,0 +1,43 @@
+* {
+    text-align: center;
+}
+
+.start-button {
+    background-color: lightblue;
+    font-size: 2em;
+    padding: 20px;
+}
+
+.timer-count {
+    color: red;
+}
+
+.button {
+    font-size: 1em;
+    padding: 20px; 
+}
+
+.answer1 {
+    background-color: lightcoral;
+}
+
+.answer2 {
+    background-color: lightgreen;
+}
+
+.answer3 {
+    background-color: lightgoldenrodyellow;
+}
+
+.answer4 {
+    background-color: lightseagreen;
+}
+
+.question-holder {
+    font-size: 2em;
+}
+
+header h1 {
+    border-bottom: 5px solid black;
+    padding: 10px;
+}
