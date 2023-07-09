@@ -14,7 +14,7 @@
 
 .button {
     font-size: 1em;
-    padding: 20px; 
+    padding: 20px;
 }
 
 .answer1 {
@@ -40,4 +40,8 @@
 header h1 {
     border-bottom: 5px solid black;
     padding: 10px;
+}
+
+#score-view {
+    display: inline-flex;
 }

@@ -12,6 +12,10 @@ var answerTwo = document.querySelector(".answer2");
 var answerThree = document.querySelector(".answer3");
 var answerFour = document.querySelector(".answer4");
 var finalScoreInput = document.querySelector("#final-score-submit");
+var submitButton = document.querySelector("#submit-button");
+var userInitialSpan = document.querySelector("#user-initials");
+var initialsInput = document.querySelector("#initials-submission");
+var scoreboard = document.querySelector("#scoreboard");
 
 var guess;
 var timerCount;
@@ -81,6 +85,8 @@ var questionBank = [
 finalScoreDisplay.style.visibility = "hidden";
 questionanswerEl.style.visibility = "hidden";
 timerview.style.visibility = "hidden";
+initialsInput.style.visibility = "hidden";
+scoreboard.style.visibility = "hidden";
 
 // main function that is kicked off that starts the timer
 function startQuiz () {
@@ -126,6 +132,10 @@ function quizOver () {
     timerview.style.visibility = "hidden";
     questionHolder.textContent = "";
     timerElement.textContent = "";
+    initialsInput.style.visibility = "visible";
+    scoreboard.style.visibility = "visible";
+    startview.style.display = "block";
+    startButton.disabled = false;
 }
 
 // this picks a random question(currently in the form of an object) from the quesiton Array
@@ -153,8 +163,8 @@ function renderQuestion() {
 function createFinalScore () {
     finalScore = (timerCount + score);
     finalScoreNumber.textContent = finalScore;
+    // sets the input box of final score to the users final score
     finalScoreInput.value = finalScore;
-
 }
 
 // this is the timer that counts down 1 second at a time to 0
@@ -175,6 +185,22 @@ function hideButton () {
     answerThree.style.visibility = "hidden";
     answerFour.style.visibility = "hidden";
 }
+
+// when the user clicks submit the initials/score are stored locally
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    var initials = document.querySelector("#initials").value;
+    var lastScore = document.querySelector("#final-score-submit").value;
+    localStorage.setItem("initials", initials + " " + lastScore);
+    renderLastScore();
+})
+
+// this renders the submission info
+function renderLastScore() {
+    var initialDisplay = localStorage.getItem("initials");
+    userInitialSpan.textContent = initialDisplay;
+}
+
 
 // this makes stuff start when the start button is clicked
 function main () {

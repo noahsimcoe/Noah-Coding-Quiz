@@ -32,17 +32,23 @@
     </div>
 
     <div id="score-view">
-        <h2>Your Final Score:</h2>
+        <h2>Your Final Score: </h2>
         <h2 class="final-score">0</h2>
     </div>
 
-    <form>
-        <label for="initials">Initials:</label>
-        <input type="text" id="initials" name="initials"><br>
-        <label for="final-score-submit">Final Score</label>
-        <input type="text" id="final-score-submit" name="final-score-submit" disabled><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div id="initials-submission">
+        <form>
+            <input type="text" id="initials" name="initials" maxlength="3" placeholder="Enter your 3 initials">
+            <input type="text" id="final-score-submit" name="final-score-submit" hidden>
+            <input type="submit" id="submit-button" value="Submit">
+        </form>
+    </div>
+
+    <div id="scoreboard">
+        <h2>Scoreboard:</h2>
+        <p><strong>Initials/Score:</strong> <span id="user-initials"></span></p>
+
+    </div>
 
     <script src="script.js"></script>
 </main>
