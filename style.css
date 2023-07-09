@@ -9,6 +9,16 @@
     padding: 20px;
 }
 
+#refresh {
+    font-size: 1.25em;
+    margin: 10px;
+}
+
+.end-button {
+    font-size: .75em;
+    padding: 5px;
+}
+
 .timer-count {
     color: red;
     font-size: 2.5em;
@@ -23,19 +33,35 @@
 }
 
 .answer1 {
+    background-color: coral;
+}
+
+.answer1:hover {
     background-color: lightcoral;
 }
 
 .answer2 {
-    background-color: lightgreen;
+    background-color: lightblue;
+}
+
+.answer2:hover {
+    background-color: lightskyblue;
 }
 
 .answer3 {
-    background-color: lightgoldenrodyellow;
+    background-color: lightpink;
+}
+
+.answer3:hover {
+    background-color: palevioletred;
 }
 
 .answer4 {
-    background-color: lightseagreen;
+    background-color: greenyellow;
+}
+
+.answer4:hover {
+    background-color: lightgreen;
 }
 
 .question-holder {
@@ -58,4 +84,9 @@ header h1 {
 
 #scoreboard li {
     padding: 3px;
+}
+
+#initials {
+    width: 3.5em;
+    height: 1.8em;
 }
