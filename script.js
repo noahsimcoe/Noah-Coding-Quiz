@@ -1,10 +1,9 @@
 var timerElement = document.querySelector(".timer-count");
 var secondsEl = document.querySelector(".seconds");
 var startButton = document.querySelector(".start-button");
-var scoreDisplay = document.querySelector("#score");
-var finalScoreDisplay = document.querySelector("#final-score");
+var finalScoreNumber = document.querySelector(".final-score");
+var finalScoreDisplay = document.querySelector("#score-view");
 var button = document.querySelectorAll(".button");
-
 var questionHolder = document.querySelector(".question-holder");
 var answerOne = document.querySelector(".answer1");
 var answerTwo = document.querySelector(".answer2");
@@ -25,7 +24,7 @@ var questionBank = [
         answer3: "JavaScript",
         answer4: "Python",
         correct: "HTML",
-    }/*,
+    },
     {
         question: "Which language is used to style a webpage?",
         answer1: "HTML",
@@ -73,8 +72,10 @@ var questionBank = [
         answer3: "Minimize",
         answer4: "Skew",
         correct: "Minimize",
-    },*/
+    },
 ]
+
+finalScoreDisplay.style.visibility = "hidden";
 
 // main function that is kicked off that starts the timer
 function startQuiz () {
@@ -98,9 +99,7 @@ function checkAnswer (event) {
 
     if (event.target.textContent === chosenQuestion.correct) {
         console.log("CORRECT");
-        score++;
-        console.log(score);
-        scoreDisplay.textContent = score;
+        score = score + 5;
     } else {
         console.log("WRONG");
         // deducts 15 seconds if you miss a question
@@ -110,18 +109,22 @@ function checkAnswer (event) {
     renderQuestion();
 }
 
+function quizOver () {
+    hideButton()
+    questionHolder.textContent = "";
+    clearInterval(timer);
+    createFinalScore();
+    finalScoreDisplay.style.visibility = "visible";
+    timerElement.textContent = "";
+    secondsEl.textContent = "";
+}
+
 // this picks a random question(currently in the form of an object) from the quesiton Array
 // this also assigns the value of the question/answers to the buttons on index.html
 function renderQuestion() {
     // this stops the timer after you have gone through all of the questions
     if (questionBank.length === 0) {
-        questionHolder.textContent = "Well done! You have completed all of the questions";
-        hideButton();
-        clearInterval(timer);
-        createFinalScore();
-        console.log(finalScore);
-        console.log(timerCount);
-        console.log(score);
+        quizOver();
     }
     else {
         // this segment of code removes the question selected from the array
@@ -140,7 +143,7 @@ function renderQuestion() {
 
 function createFinalScore () {
     finalScore = (timerCount + score);
-    finalScoreDisplay.textContent = finalScore;
+    finalScoreNumber.textContent = finalScore;
 }
 
 // this is the timer that counts down 1 second at a time to 0
@@ -148,14 +151,8 @@ function startTimer () {
     timer = setInterval(() => {
         timerCount--;
         timerElement.textContent = timerCount;
-        if (timerCount < 0) {
-            timerElement.textContent = "You are out of time!!!";
-            secondsEl.textContent = "";
-            console.log("you lose");
-            // stops the timer at 0.
-            hideButton()
-            questionHolder.textContent = "";
-            clearInterval(timer);
+        if (timerCount <= 0) {
+            quizOver();
         }
     }, 1000);
 }
