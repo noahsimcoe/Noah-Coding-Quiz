@@ -86,6 +86,7 @@ var questionBank = [
     },
 ]
 
+// hiding views (like score/timer/etc.) before the quiz has started
 refreshButton.style.display = "none";
 finalScoreDisplay.style.display = "none";
 questionanswerEl.style.display = "none";
@@ -104,6 +105,7 @@ function startQuiz () {
     renderQuestion();
 }
 
+// functionality for when the user selects their answer for each question
 function userChoice () {
     answerOne.addEventListener("click", checkAnswer);
     answerTwo.addEventListener("click", checkAnswer);
@@ -116,18 +118,21 @@ function checkAnswer (event) {
     console.log(event.target.textContent);
     console.log(chosenQuestion.correct);
 
+    // for correct answers, +5 score
     if (event.target.textContent === chosenQuestion.correct) {
         console.log("CORRECT");
         score = score + 5;
+
+    // for incorrect answers, -15 second time deduciton
     } else {
         console.log("WRONG");
-        // deducts 15 seconds if you miss a question
         timerCount = timerCount - 15;
     }
     // RECURSION -- this makes the function restart after an answer is selected
     renderQuestion();
 }
 
+// changes the view for when the quiz is over, shows scoreboard/score/initials submission area
 function quizOver () {
     hideButton()
     clearInterval(timer);
@@ -146,12 +151,12 @@ function quizOver () {
 // this picks a random question(currently in the form of an object) from the quesiton Array
 // this also assigns the value of the question/answers to the buttons on index.html
 function renderQuestion() {
-    // this stops the timer after you have gone through all of the questions
+    // this stops the quiz after you have gone through all of the questions
     if (questionBank.length === 0) {
         quizOver();
     }
     else {
-        // this segment of code removes the question selected from the array
+        // this segment of code chooses a random q/a and then removes that question selected from the array
         var pickedQ = Math.floor(Math.random() * questionBank.length)
         chosenQuestion = questionBank[pickedQ];
         questionBank.splice(pickedQ, 1);
@@ -165,6 +170,7 @@ function renderQuestion() {
     }
 }
 
+// creates final score based off of correctly answered questions and time remaining on the clock
 function createFinalScore () {
     finalScore = (timerCount + score);
     finalScoreNumber.textContent = finalScore;
@@ -172,7 +178,7 @@ function createFinalScore () {
     finalScoreInput.value = finalScore;
 }
 
-// this is the timer that counts down 1 second at a time to 0
+// this is the timer that counts down 1 second at a time to 0, used as the bulk timer during the quiz
 function startTimer () {
     timer = setInterval(() => {
         timerCount--;
@@ -183,7 +189,7 @@ function startTimer () {
     }, 1000);
 }
 
-// used to hide the answers
+// used to hide the answers when the quiz is not in effect
 function hideButton () {
     answerOne.style.display = "none";
     answerTwo.style.display = "none";
@@ -191,9 +197,9 @@ function hideButton () {
     answerFour.style.display = "none";
 }
 
+// button to clear the scoreboard
 clearButton.addEventListener("click", function(event) {
     localStorage.clear();
-    console.log("Hey");
 })
 
 
@@ -220,10 +226,12 @@ function refreshPage() {
     });
 }
 
+// sets items in localstorage
 function storeScores () {
     localStorage.setItem("scores", JSON.stringify(scores));
 }
 
+// renders the scores as separate list items and add them to the list
 function renderScores() {
     scoreList.innerHTML = "";
     for (var i = 0; i < scores.length; i++) {
@@ -240,6 +248,7 @@ function init(){
     if (storedScores !== null) {
         scores = storedScores;
     }
+
     renderScores();
 }
 
